@@ -98,7 +98,7 @@ github.com/lib/pq
 github.com/lib/pq/hstore
 github.com/lib/pq/oid
 github.com/lib/pq/scram
-# github.com/linshenqi/sptty v0.0.0-20200211104501-c38612df458f
+# github.com/linshenqi/sptty v0.0.0-20200211162103-9c1bd70a0667
 github.com/linshenqi/sptty
 # github.com/microcosm-cc/bluemonday v1.0.2
 github.com/microcosm-cc/bluemonday
