@@ -1,20 +1,23 @@
 package sptty
 
 import (
+	"io/ioutil"
+	"time"
+
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"gopkg.in/resty.v1"
-	"time"
 )
 
 const (
-	BaseApiRoute    = "/api/v1"
+	BaseApiRoute    = "/api"
 	HttpServiceName = "http"
 )
 
 type HttpConfig struct {
-	Addr string `yaml:"addr"`
+	Addr   string `yaml:"addr"`
+	ApiDoc string `yaml:"api_doc"`
 }
 
 func (c *HttpConfig) ConfigName() string {
@@ -27,7 +30,8 @@ func (c *HttpConfig) Validate() error {
 
 func (c *HttpConfig) Default() interface{} {
 	return &HttpConfig{
-		Addr: "8080",
+		Addr:   "8080",
+		ApiDoc: "",
 	}
 }
 
@@ -54,6 +58,7 @@ type HttpClientConfig struct {
 type HttpService struct {
 	app   *iris.Application
 	party iris.Party
+	cfg   HttpConfig
 }
 
 func DefaultHttpClientConfig() *HttpClientConfig {
@@ -81,6 +86,10 @@ func CreateHttpClient(cfg *HttpClientConfig) *resty.Client {
 }
 
 func (s *HttpService) SetOptions() {
+	tag := appTag
+	if tag == "" {
+		tag = BaseApiRoute
+	}
 
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
@@ -89,16 +98,29 @@ func (s *HttpService) SetOptions() {
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"},
 	})
 
-	s.party = s.app.Party(BaseApiRoute, crs).AllowMethods(iris.MethodOptions)
+	s.party = s.app.Party(tag, crs).AllowMethods(iris.MethodOptions)
 }
 
 func (s *HttpService) Init(app Sptty) error {
-	cfg := HttpConfig{}
-	if err := app.GetConfig(s.ServiceName(), &cfg); err != nil {
+	if err := app.GetConfig(s.ServiceName(), &s.cfg); err != nil {
 		return err
 	}
 
-	return s.app.Run(iris.Addr(cfg.Addr), iris.WithoutInterruptHandler)
+	s.AddRoute("GET", "/healthz", func(ctx iris.Context) {
+		ctx.StatusCode(iris.StatusOK)
+	})
+
+	s.AddRoute("GET", "/apidoc", func(ctx iris.Context) {
+		ctx.Header("content-type", "application/json")
+		f, err := ioutil.ReadFile(s.cfg.ApiDoc)
+		if err != nil {
+			ctx.StatusCode(iris.StatusNoContent)
+			return
+		}
+		_, _ = ctx.Write(f)
+	})
+
+	return s.app.Run(iris.Addr(s.cfg.Addr), iris.WithoutInterruptHandler)
 }
 
 func (s *HttpService) Release() {
