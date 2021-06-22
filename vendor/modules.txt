@@ -7,6 +7,7 @@ github.com/CloudyKit/jet/v3
 # github.com/Shopify/goreferrer v0.0.0-20181106222321-ec9c9a553398
 github.com/Shopify/goreferrer
 # github.com/aliyun/alibaba-cloud-sdk-go v1.61.4
+## explicit
 github.com/aliyun/alibaba-cloud-sdk-go/sdk
 github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth
 github.com/aliyun/alibaba-cloud-sdk-go/sdk/auth/credentials
@@ -60,8 +61,10 @@ github.com/json-iterator/go
 # github.com/kataras/golog v0.0.10
 github.com/kataras/golog
 # github.com/kataras/iris v11.1.1+incompatible
+## explicit
 github.com/kataras/iris/core/errors
 # github.com/kataras/iris/v12 v12.1.8
+## explicit
 github.com/kataras/iris/v12
 github.com/kataras/iris/v12/cache
 github.com/kataras/iris/v12/cache/cfg
@@ -108,6 +111,7 @@ github.com/lib/pq/hstore
 github.com/lib/pq/oid
 github.com/lib/pq/scram
 # github.com/linshenqi/sptty v0.0.0-20201222041804-d7e3403845f9
+## explicit
 github.com/linshenqi/sptty
 # github.com/microcosm-cc/bluemonday v1.0.2
 github.com/microcosm-cc/bluemonday
@@ -126,12 +130,14 @@ github.com/ryanuber/columnize
 # github.com/schollz/closestmatch v2.1.0+incompatible
 github.com/schollz/closestmatch
 # github.com/sfreiberg/gotwilio v0.0.0-20200219192335-4472db517000
+## explicit
 github.com/sfreiberg/gotwilio
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/stretchr/testify v1.5.1
+## explicit
 github.com/stretchr/testify/assert
 # golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d
 golang.org/x/crypto/acme
@@ -153,12 +159,15 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 # gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
+## explicit
 gopkg.in/alexcesaro/quotedprintable.v3
 # gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+## explicit
 gopkg.in/gomail.v2
 # gopkg.in/ini.v1 v1.52.0
 gopkg.in/ini.v1
 # gopkg.in/resty.v1 v1.12.0
+## explicit
 gopkg.in/resty.v1
 # gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
